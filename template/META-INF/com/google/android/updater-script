@@ -1,0 +1,9 @@
+ui_print("Patching system image unconditionally...");
+show_progress(0.900000, 0);
+package_extract_file("system.img", "/dev/block/bootdevice/by-name/system");
+package_extract_file("vendor.img", "/dev/block/bootdevice/by-name/vendor");
+show_progress(0.020000, 10);
+package_extract_file("boot.img", "/dev/block/bootdevice/by-name/boot");
+package_extract_file("dtbo.img", "/dev/block/bootdevice/by-name/dtbo");
+show_progress(0.100000, 10);
+set_progress(1.000000);
