@@ -202,23 +202,19 @@ jobs:
       - name: img2sdat && brotli
         run: |
           pip install brotli
-          mv tmp/new-boot.img template/boot.img
+          mv tmmv tmp/new-boot.img template/boot.img
           mv system.img template/system.img
-          mv vendor.img template/vendor.img
           cd template
-          ../rimg2sdat.py -c vendor.img
           ../rimg2sdat.py -c system.img
-          rm vendor.img
           rm system.img
           rm system.new.dat
           ls -al
           cd ..
-          echo "--------------------------------------------"
-          mv template ${{ steps.var.outputs.filename }}
-          cd ${{ steps.var.outputs.filename }}
-          zip -q -r -9 ${{ steps.var.outputs.filename }}.zip *
+          mv template ${{ steps.init.outputs.filename }}
+          cd ${{ steps.init.outputs.filename }}
+          zip -q -r -9 ${{ steps.init.outputs.filename }}.zip *
           cd ..
-          mv ${{ steps.var.outputs.filename }}/${{ steps.var.outputs.filename }}.zip ./
+          mv ${{ steps.init.outputs.filename }}/${{ steps.init.outputs.filename }}.zip ./
           ls -al
 
       - name: Upload to Artifact
