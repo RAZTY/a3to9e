@@ -202,6 +202,7 @@ jobs:
       - name: img2sdat && brotli
         run: |
           pip install brotli
+          pip2.7 install brotli
           mv tmmv tmp/new-boot.img template/boot.img
           mv system.img template/system.img
           cd template
