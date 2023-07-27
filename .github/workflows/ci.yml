@@ -153,10 +153,6 @@ jobs:
           rm image.gz-dtb
           temp=$(ls -lS *.dtb | head -1 | awk '{print $9}')
           echo temp: $temp
-          if [ -z "$temp" ]; then
-          echo "ERROR: Appended Device Tree Blob not found!"
-          exit 1
-          fi
           dtb=${temp##* }
           dts=${dtb%.*}.dts
           echo dtb: $dtb
@@ -164,22 +160,22 @@ jobs:
           dtc -q -I dtb -O dts -o $dts $dtb
           rm $dtb
           echo rm: $dtb
-          sed -i '/parts/{n;d;}' $dts
+          sed -i '/parts/{N;d;}' $dts
           sed -i '/vbmeta/d' $dts
-          sed -i '/android,system/{n;d;}' $dts
-          sed -i '/android,system/{n;d;}' $dts
-          sed -i '/android,system/{n;d;}' $dts
+          sed -i '/android,system/{N;d;}' $dts 
+          sed -i '/android,system/{N;d;}' $dts
+          sed -i '/android,system/{N;d;}' $dts
           sed -i '/android,system/d' $dts
-          sed -i '/,discard/{n;s/,slotselect//;}' *.dts
+          sed -i '/,discard/{N;s/,slotselect//;}' *.dts
           sed -i 'N;/\n.*,slotselect/!P;D' $dts
-          sed -i '/,slotselect/{n;d;}' $dts
-          sed -i '/,slotselect/{n;d;}' $dts
+          sed -i '/,slotselect/{N;d;}' $dts
+          sed -i '/,slotselect/{N;d;}' $dts
           sed -i '/,slotselect/d' $dts
           sed -i '/,fstab/r flags.txt' $dts
           sed -i '/,fstab/G' $dts
-          sed -i '/android,firmware/{n;d;}' $dts
+          sed -i '/android,firmware/{N;d;}' $dts
           sed -i 's/,avb//g' $dts
-          sed -i '/,slotselect/{n;s/disable/ok/;}' $dts
+          sed -i '/,slotselect/{N;s/disable/ok/;}' $dts
           sed -i 's/,slotselect//g' $dts
           dtc -q -I dts -O dtb -o $dtb $dts
           mv *.dts output/
