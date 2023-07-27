@@ -115,8 +115,10 @@ jobs:
           echo "Payload Dumper"
           unzip ${{ steps.var.outputs.filename }}.zip payload.bin
           rm -rf ${{ steps.var.outputs.filename }}.zip
+          pip install --upgrade protobuf==3.20.0
           python3 update-payload-extractor/extract.py payload.bin --output_dir ./
           ls -al
+
 
       - name: Patching Fstab
         run: |
