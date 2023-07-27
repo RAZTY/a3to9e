@@ -147,7 +147,7 @@ jobs:
 
       - name: Patching device tree blobs
         run: |
-          mv mkbootimg/boot/kernel ./image.gz-dtb
+          mv mkbootimg/boot/kernel ./mkbootimg/image.gz-dtb
           ./split-appended-dtb image.gz-dtb
           ls -al
           rm image.gz-dtb
