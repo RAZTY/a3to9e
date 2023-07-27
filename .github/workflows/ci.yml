@@ -153,6 +153,10 @@ jobs:
           rm image.gz-dtb
           temp=$(ls -lS *.dtb | head -1 | awk '{print $9}')
           echo temp: $temp
+          if [ -z "$temp" ]; then
+          echo "ERROR: Appended Device Tree Blob not found!"
+          exit 1
+          fi
           dtb=${temp##* }
           dts=${dtb%.*}.dts
           echo dtb: $dtb
